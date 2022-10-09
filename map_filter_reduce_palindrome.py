@@ -35,6 +35,31 @@ def is_palindrome(word):
     # Recursive case: Is word[1:-1] a palindrome?
     return is_palindrome(word[1:-1])
 
+# A variant of the is_palindrome function that accounts for spaces in
+# the word. In other words, is_palindrome_space() will say that "taco cat"
+# is a palindrome, but is_palindrome() will say that it is not.
+#
+# Note that this only works for space characters, it will not work for
+# newlines or tabs. Why? How could you make them work?
+def is_palindrome_space(word):
+    # Base case 1: Empty words and one-character words are
+    # always palindromes
+    if len(word) == 0 or len(word) == 1:
+        return True
+    
+    if word[0] == " ":
+        return is_palindrome_space(word[1:])
+    if word[-1] == " ":
+        return is_palindrome_space(word[:-1])
+
+    # Base case 2: If the first and last character in word are
+    # not equal, it cannot be a palindrome
+    if word[0] != word[-1]:
+        return False
+
+    # Recursive case: Is word[1:-1] a palindrome?
+    return is_palindrome_space(word[1:-1])
+
 # Part 1: Map/filter/reduce for palindrome counting
 #-------------------------------------------------------------
 # Open the words.txt file for reading.
@@ -55,6 +80,7 @@ for word in infile:
 words_long = []
 for word in words:
     if len(word) > 2:
+        word = word
         words_long.append(word)
 
 # Mapping operation 3: Find palindromes
